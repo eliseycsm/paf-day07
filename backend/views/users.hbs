@@ -1,0 +1,33 @@
+<h2>Show records</h2>
+<hr>
+<div>
+
+{{#if noResults}}
+    <h3>Sorry, there are no search results with the user of name: {{username}}</h3>
+{{else}}
+    {{#each results}}
+    <ul>
+        <li>
+            User: {{this.user}}
+        </li>
+        <li>
+            Timestamp: {{this.ts}}
+        </li>
+        <li>
+            Temperature: {{this.temperature}}&deg;C
+        </li>
+        <li>
+            Travelled overseas: {{this.q1}}
+        </li>
+        <li>
+            Have symptoms: {{this.q2}}
+        </li>
+
+        Image of upload:
+        <img src="{{this.image}}">
+    </ul>
+
+    {{/each}}
+{{/if}}
+
+</div>
