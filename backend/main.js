@@ -22,6 +22,7 @@ const APP_PORT=process.env.APP_PORT
 //set config reference for mongodb
 const DATABASE = 'take-temp-together'
 const COLLECTION = 'temperature'
+const LIMIT = 5
 
 
 const app = express()
@@ -56,8 +57,9 @@ const AWS_S3_BUCKETNAME = process.env.AWS_S3_BUCKETNAME
 const spaceEndpoint = new AWS.Endpoint(AWS_S3_HOSTNAME) //pass hostname here
 
 //create credentials in C:/<User>/.aws.credentials
-//load into AWS.config.credentials
-AWS.config.credentials = new AWS.SharedIniFileCredentials('ac-paf2020')//profilename in credentials
+//no need this - load into AWS.config.credentials
+//!!! aws config/credentials file is used mainly for cli, for programming we use env vars
+//AWS.config.credentials = new AWS.SharedIniFileCredentials('ac-paf2020')//profilename in credentials
 
 //create s3 bucket
 const s3 = new AWS.S3({
@@ -99,6 +101,11 @@ app.get('/temperature/:name', async (req, resp) => {
             user.image = 'http://' + AWS_S3_BUCKETNAME + '.' + AWS_S3_HOSTNAME + '/' + user.image
         }
     })
+
+    //  ----- add pagination for practice -----
+//limit alr defined above
+
+
     console.log(usernameResults)
     if (usernameResults.length >= 0) {
         resp.status(200).type('text/html')
